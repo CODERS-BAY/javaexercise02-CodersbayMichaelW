@@ -11,42 +11,25 @@ public class Calculator {
 
     public static void stringToArray() {
         boolean nextIsMinusSign = false;
-        boolean firstNumber = true;
 
         for (int i = 0; i < formula.length(); i++){
             number += formula.charAt(i);
             // every other thing in the String
-            if (!firstNumber) {
-                if (formula.charAt(i) == '(') { array[i] = "("; fillArray(i);}
-                else if (formula.charAt(i) == ')') { array[i] = ")"; fillArray(i);}
-                else if (formula.charAt(i) == '*') { array[i] = "*"; fillArray(i);}
-                else if (formula.charAt(i) == '%') { array[i] = "%"; fillArray(i);}
-                else if (formula.charAt(i) == '/') { array[i] = "/"; fillArray(i);}
-                else if (formula.charAt(i) == '+') { array[i] = "+"; fillArray(i);}
-                else if (formula.charAt(i) == ' ') { array[i] = "X"; fillArray(i);}
-                // special cass when a minus is in front of a another minus || --
-                else if (formula.charAt(i) == '-' && formula.charAt(i+1) == '-'){
-                    array[i] = "-";
-                    number = "";
-                    lengthOfCalcArray = i;
-                }
-                // end of array
-                else if (i == formula.length() - 1) { array[i] = formula.substring(lengthOfCalcArray+1, i+1);}
+            if (formula.charAt(i) == '(') { array[i] = "("; fillArray(i);}
+            else if (formula.charAt(i) == ')') { array[i] = ")"; fillArray(i);}
+            else if (formula.charAt(i) == '*') { array[i] = "*"; fillArray(i);}
+            else if (formula.charAt(i) == '%') { array[i] = "%"; fillArray(i);}
+            else if (formula.charAt(i) == '/') { array[i] = "/"; fillArray(i);}
+            else if (formula.charAt(i) == '+') { array[i] = "+"; fillArray(i);}
+            else if (formula.charAt(i) == ' ') { array[i] = "X"; fillArray(i);}
+            // special cass when a minus is in front of a another minus || --
+            else if (formula.charAt(i) == '-' && formula.charAt(i+1) == '-'){
+                array[i] = "-";
+                number = "";
+                lengthOfCalcArray = i;
             }
-            // first number
-            else {
-                // to be able to add a minus number into the array
-                if (Character.isDigit(formula.charAt(i)) && !nextIsMinusSign) { nextIsMinusSign = true; }
-                // where is the end?
-                if (formula.charAt(i) == '*' || formula.charAt(i) == '/' || formula.charAt(i) == '%' ||
-                        formula.charAt(i) == '+' || formula.charAt(i) == '(' || formula.charAt(i) == '-' && nextIsMinusSign) {
-                    array[i-1] = number.substring(0, i);
-                    array[i] = ""+formula.charAt(i);
-                    number = "";
-                    lengthOfCalcArray = i;
-                    firstNumber = false;
-                }
-            }
+            // end of array
+            else if (i == formula.length() - 1) { array[i] = formula.substring(lengthOfCalcArray+1, i+1);}
         }
     }
 
