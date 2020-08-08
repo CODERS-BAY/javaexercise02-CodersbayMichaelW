@@ -11,6 +11,8 @@
 // spaces sind egal, wenn man den String to Double parst verschwieden sie.
 
 public class calc {
+    static boolean finishedCalc = false;
+
     // Only for the first iteration over the String
     public static String[] returnString(int i, String test) {
         String myString = "";
@@ -89,11 +91,99 @@ public class calc {
         return array.length;
     }
 
-    public static void main(String[] args) {
-        String test = " -2 * ( 10+5*(4+5 *2) - -2 /4)+8";
-        System.out.println("String: " + test);
-        String[] array = new String[test.length()];
+    public static int calculation(String sign, int lengthOfCalcArray, String[] calcarray) {
+        finishedCalc = false;
+        switch (sign) {
+            case "*":
+                while(!finishedCalc){
+                    finishedCalc = true;
+                    for (int i = 0; i < lengthOfCalcArray; i++) {
+                        if (calcarray[i] == sign) {
+                            finishedCalc = false;
+                            double sum = Double.parseDouble(calcarray[i-1]) * Double.parseDouble(calcarray[i+1]);
+                            calcarray[i-1] = Double.toString(sum);
+                            calcarray[i] = "X";
+                            calcarray[i+1] = "X";
+                            lengthOfCalcArray = bubbleSort(calcarray);
+                        }
+                    }
+                }
+                finishedCalc = false;
+                return lengthOfCalcArray;
+            case "/":
+                while(!finishedCalc){
+                    finishedCalc = true;
+                    for (int i = 0; i < lengthOfCalcArray; i++) {
+                        if (calcarray[i] == sign) {
+                            finishedCalc = false;
+                            double sum = Double.parseDouble(calcarray[i-1]) / Double.parseDouble(calcarray[i+1]);
+                            calcarray[i-1] = Double.toString(sum);
+                            calcarray[i] = "X";
+                            calcarray[i+1] = "X";
+                            lengthOfCalcArray = bubbleSort(calcarray);
+                        }
+                    }
+                }
+                finishedCalc = false;
+                return lengthOfCalcArray;
+            case "%":
+                while(!finishedCalc){
+                    finishedCalc = true;
+                    for (int i = 0; i < lengthOfCalcArray; i++) {
+                        if (calcarray[i] == sign) {
+                            finishedCalc = false;
+                            double sum = Double.parseDouble(calcarray[i-1]) % Double.parseDouble(calcarray[i+1]);
+                            calcarray[i-1] = Double.toString(sum);
+                            calcarray[i] = "X";
+                            calcarray[i+1] = "X";
+                            lengthOfCalcArray = bubbleSort(calcarray);
+                        }
+                    }
+                }
+                finishedCalc = false;
+                return lengthOfCalcArray;
+            case "+":
+                while(!finishedCalc){
+                    finishedCalc = true;
+                    for (int i = 0; i < lengthOfCalcArray; i++) {
+                        if (calcarray[i] == sign) {
+                            finishedCalc = false;
+                            double sum = Double.parseDouble(calcarray[i-1]) + Double.parseDouble(calcarray[i+1]);
+                            calcarray[i-1] = Double.toString(sum);
+                            calcarray[i] = "X";
+                            calcarray[i+1] = "X";
+                            lengthOfCalcArray = bubbleSort(calcarray);
+                        }
+                    }
+                }
+                finishedCalc = false;
+                return lengthOfCalcArray;
+            case "-":
+                while(!finishedCalc){
+                    finishedCalc = true;
+                    for (int i = 0; i < lengthOfCalcArray; i++) {
+                        if (calcarray[i] == sign) {
+                            finishedCalc = false;
+                            double sum = Double.parseDouble(calcarray[i-1]) - Double.parseDouble(calcarray[i+1]);
+                            calcarray[i-1] = Double.toString(sum);
+                            calcarray[i] = "X";
+                            calcarray[i+1] = "X";
+                            lengthOfCalcArray = bubbleSort(calcarray);
+                        }
+                    }
+                }
+                finishedCalc = false;
+                return lengthOfCalcArray;
+        }
+        return -1;
+    }
 
+    public static void main(String[] args) {
+        String test = " -2 * ( 10+5*(4+5 *2*2) - -2 /4)+8";
+        System.out.println("String: " + test);
+
+
+        String[] array = new String[test.length()];
         // transform String to Array
         boolean firstNumber = true;
         for (int i = 0; i < test.length(); i++) {
@@ -165,10 +255,10 @@ public class calc {
         // Bubblesort -> moving all the "X" to the right
         int endOfArray = bubbleSort(array); // not gonna iterate over the X's
 
+
         // Solving the Equation
         boolean solved = false;
-        int k = 3;
-        while (k-- > 0) {
+        while (!solved) {
             // find the deepest layer
             int begin = 0;
             int end = 0;
@@ -210,89 +300,20 @@ public class calc {
 
             // calc the deepest layer
             // multi > div = mod > plus = minus | * > / = % > + = -
-
-            // Verbesserung: eine funktion erstellen, die den swap macht und bubbleSort aufruft
             // multi
-            for (int i = 0; i < lengthOfCalcArray; i++) {
-                if (calcarray[i] == null){
-                    break;
-                }
-                else if (calcarray[i] == "*") {
-                    double sum = Double.parseDouble(calcarray[i-1]) * Double.parseDouble(calcarray[i+1]);
-                    calcarray[i-1] = Double.toString(sum);
-                    calcarray[i] = "X";
-                    calcarray[i+1] = "X";
-                    bubbleSort(calcarray);
-                }
-            }
-            lengthOfCalcArray = bubbleSort(calcarray);
+            lengthOfCalcArray = calculation("*", lengthOfCalcArray, calcarray);
 
             // div
-            for (int i = 0; i < lengthOfCalcArray; i++) {
-                if (calcarray[i] == null){
-                    break;
-                }
-                else if (calcarray[i] == "/") {
-                    double sum = Double.parseDouble(calcarray[i-1]) / Double.parseDouble(calcarray[i+1]);
-                    calcarray[i-1] = Double.toString(sum);
-                    calcarray[i] = "X";
-                    calcarray[i+1] = "X";
-                    bubbleSort(calcarray);
-                }
-            }
-            lengthOfCalcArray = bubbleSort(calcarray);
+            lengthOfCalcArray = calculation("/", lengthOfCalcArray, calcarray);
 
             // mod
-            for (int i = 0; i < lengthOfCalcArray; i++) {
-                if (calcarray[i] == null){
-                    break;
-                }
-                else if (calcarray[i] == "%") {
-                    double sum = Double.parseDouble(calcarray[i-1]) % Double.parseDouble(calcarray[i+1]);
-                    calcarray[i-1] = Double.toString(sum);
-                    calcarray[i] = "X";
-                    calcarray[i+1] = "X";
-                    bubbleSort(calcarray);
-                }
-            }
-            lengthOfCalcArray = bubbleSort(calcarray);
+            lengthOfCalcArray = calculation("%", lengthOfCalcArray, calcarray);
 
             // plus
-            for (int i = 0; i < lengthOfCalcArray; i++) {
-                if (calcarray[i] == null){
-                    break;
-                }
-                else if (calcarray[i] == "+") {
-                    double sum = Double.parseDouble(calcarray[i-1]) + Double.parseDouble(calcarray[i+1]);
-                    calcarray[i-1] = Double.toString(sum);
-                    calcarray[i] = "X";
-                    calcarray[i+1] = "X";
-                    bubbleSort(calcarray);
-                }
-            }
-            lengthOfCalcArray = bubbleSort(calcarray);
+            lengthOfCalcArray = calculation("+", lengthOfCalcArray, calcarray);
 
             // minus
-            for (int i = 0; i < lengthOfCalcArray; i++) {
-                if (calcarray[i] == null){
-                    break;
-                }
-                else if (calcarray[i].equals("-")) {
-                    double sum = Double.parseDouble(calcarray[i-1]) - Double.parseDouble(calcarray[i+1]);
-                    calcarray[i-1] = Double.toString(sum);
-                    calcarray[i] = "X";
-                    calcarray[i+1] = "X";
-                    bubbleSort(calcarray);
-                }
-            }
-            bubbleSort(calcarray);
-
-            // Debug
-//            System.out.println("Hello!!!!!");
-//            for (String x : calcarray) {
-//                System.out.print(x + " ");
-//            }
-//            System.out.println();
+            lengthOfCalcArray = calculation("-", lengthOfCalcArray, calcarray);
 
             // replace the bracket with the calculated number in the brackets
             if (brackets) {
@@ -325,14 +346,6 @@ public class calc {
         }
 
         System.out.println("Answer: " + array[0]);
-
-
-        // Debug
-//        System.out.println(test);
-//        for (String x : array) {
-//            System.out.print(x + " ");
-//        }
-//        System.out.println();
 
     }
 }
