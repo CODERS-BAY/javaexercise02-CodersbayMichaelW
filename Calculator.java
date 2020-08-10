@@ -9,9 +9,55 @@ public class Calculator {
     static String[] array;
     static String[] calcarray;
 
-    public static void stringToArray() {
-        boolean nextIsMinusSign = false;
+    public static boolean validating() {
+        int countBrackets = 0;
+        boolean sign = false;
+        try {
+            for (int i = 0; i < formula.length(); i++) {
+                switch (formula.charAt(i)) {
+                    case '*', '%', '/', '+' -> {
+                        if (sign) {
+                            return false;
+                        }
+                        sign = true;
+                    }
+                    case ' ' -> {
+                    }
+                    case '(' -> {
+                        sign = false;
+                        countBrackets++;
+                    }
+                    case ')' -> {
+                        sign = false;
+                        countBrackets--;
+                    }
+                    case '-' -> {
+                        if (formula.substring(i+1, i+2).matches("[0-9]")) {
+                            sign = false;
+                        }
+                        else if (!sign) {
+                            sign = true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    default -> {
+                        sign = false;
+                        if (!formula.substring(i, i + 1).matches("[0-9]")) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return countBrackets == 0;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
 
+    public static void stringToArray() {
         for (int i = 0; i < formula.length(); i++){
             number += formula.charAt(i);
             // every other thing in the String
@@ -79,7 +125,7 @@ public class Calculator {
         }
     }
 
-    // need to know the begin and end of the subset in order to set up the array correct :(
+    // need to know the begin and end of the subset in order to set up the array correctly :(
     public static void deepestLayer() {
         begin = 0;
         end = 0;
@@ -163,57 +209,64 @@ public class Calculator {
     }
 
     public static void main(String[] args) {
-        formula = " -2 - ( 10+5*(4+20 *2*2) --2 /4)+8";
+        formula = " (-2 - ( 10+5*(4+20 *2*2) - -2 /4)+8)";
         System.out.println("String: " + formula);
 
-        // Set length of array
-        array = new String[formula.length()];
+        // test if the String has rigth input
+        boolean input = validating();
+        String text = (input) ? "Correct" : "Wrong";
+        System.out.println("Your input was " + text);
 
-        // Step 1 String to Array
-        // make String to Array
-        stringToArray();
+        if (input) {
+            // Set length of array
+            array = new String[formula.length()];
 
-        // fill the the array with "X" where it is "null" and sort it
-        nullBubleSort();
+            // Step 1 String to Array
+            // make String to Array
+            stringToArray();
 
-        // Step 2 Calculating the Array
-        calcarray = new String[lengthOfCalcArray];
-        boolean done = false;
-        while (!done){
-            // find the deepest Layer
-            deepestLayer();
+            // fill the the array with "X" where it is "null" and sort it
+            nullBubleSort();
 
-            // make a new Array with the deepest layer
-            createSubArray(); // don't need to do this since i can do the same in deepestLayer
+            // Step 2 Calculating the Array
+            calcarray = new String[lengthOfCalcArray];
+            boolean done = false;
+            while (!done) {
+                // find the deepest Layer
+                deepestLayer();
 
-            // calc the deepest layer | multi > div = mod > plus = minus | * > / = % > + = -
-            // multi
-            calculation("*");
-            // div
-            calculation("/");
-            // mod
-            calculation("%");
-            // plus
-            calculation("+");
-            // minus
-            calculation("-");
+                // make a new Array with the deepest layer
+                createSubArray();
 
-            // replace the bracket with the calculated number in the brackets
-            replaceBrackets();
+                // calc the deepest layer | multi > div = mod > plus = minus | * > / = % > + = -
+                // multi
+                calculation("*");
+                // div
+                calculation("/");
+                // mod
+                calculation("%");
+                // plus
+                calculation("+");
+                // minus
+                calculation("-");
 
-            // Debug
-            for (String x : array){
-                System.out.print(x + " ");
+                // replace the bracket with the calculated number in the brackets
+                replaceBrackets();
+
+                // Debug
+                for (String x : array) {
+                    System.out.print(x + " ");
+                }
+                System.out.println();
+
+                // done?
+                if (array[1].equals("X")) {
+                    done = true;
+                }
+
             }
-            System.out.println();
 
-            // done?
-            if (array[1].equals("X")) {
-                done = true;
-            }
-
+            System.out.println("Answer: " + array[0]);
         }
-
-        System.out.println("Answer: " + array[0]);
     }
 }
