@@ -13,6 +13,7 @@ public class Calculator {
         int countBrackets = 0;
         boolean sign = false;
         boolean number = false;
+        boolean inBrackets = false;
         try {
             for (int i = 0; i < formula.length(); i++) {
                 switch (formula.charAt(i)) {
@@ -91,15 +92,15 @@ public class Calculator {
 
     // helps to convert String to Array
     public static void fillArray(int i) {
-        if (i == 0) { lengthOfCalcArray = i + 1;}
-        if (lengthOfCalcArray == 0) {
+        if (i == 0) { lengthOfCalcArray++; }
+        else if (lengthOfCalcArray == 1 || lengthOfCalcArray == 0) {
             array[i-1] = formula.substring(lengthOfCalcArray, i);
         }
         else if (lengthOfCalcArray + 1 < i) {
             array[i - 1] = formula.substring(lengthOfCalcArray + 1, i);
         }
         number = "";
-        lengthOfCalcArray = i;
+        if (i > 0) { lengthOfCalcArray = i; }
     }
 
     // also writes the length of the array into "lengthOfCalcArray"
@@ -229,11 +230,22 @@ public class Calculator {
     }
 
     public static void main(String[] args) {
-        formula = "-2 - ()()( 10+5*(4+20 *2*2) - -2 /4)+8";
+        formula = "(-2) - ()()( 10+5*(4+20 *2*2) - -2 /4)+8";
         System.out.println("String: " + formula);
 
         // test if the String has rigth input
-        boolean input = validating();
+//        boolean input = validating();
+
+        // Debug
+        array = new String[formula.length()];
+        stringToArray();
+        boolean input = false;
+        for (String x : array) {
+            System.out.print(x + " ");
+        }
+        System.out.println();
+
+
         String text = (input) ? "Correct" : "Wrong";
         System.out.println("Your input was " + text);
 
