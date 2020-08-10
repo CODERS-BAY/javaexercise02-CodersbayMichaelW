@@ -12,6 +12,7 @@ public class Calculator {
     public static boolean validating() {
         int countBrackets = 0;
         boolean sign = false;
+        boolean number = false;
         try {
             for (int i = 0; i < formula.length(); i++) {
                 switch (formula.charAt(i)) {
@@ -20,15 +21,18 @@ public class Calculator {
                             return false;
                         }
                         sign = true;
+                        number = false;
                     }
                     case ' ' -> {
                     }
                     case '(' -> {
                         sign = false;
+                        number = false;
                         countBrackets++;
                     }
                     case ')' -> {
                         sign = false;
+                        number = false;
                         countBrackets--;
                     }
                     case '-' -> {
@@ -37,6 +41,7 @@ public class Calculator {
                         }
                         else if (!sign) {
                             sign = true;
+                            number = false;
                         }
                         else {
                             return false;
@@ -45,8 +50,13 @@ public class Calculator {
                     default -> {
                         sign = false;
                         if (!formula.substring(i, i + 1).matches("[0-9]")) {
+                            System.out.println(formula.charAt(i));
                             return false;
                         }
+                        else if (number && !formula.substring(i-1, i).matches("[0-9]")) {
+                            return false;
+                        }
+                        number = true;
                     }
                 }
             }
@@ -81,7 +91,11 @@ public class Calculator {
 
     // helps to convert String to Array
     public static void fillArray(int i) {
-        if (lengthOfCalcArray + 1 < i) {
+        if (i == 0) { lengthOfCalcArray = i + 1;}
+        if (lengthOfCalcArray == 0) {
+            array[i-1] = formula.substring(lengthOfCalcArray, i);
+        }
+        else if (lengthOfCalcArray + 1 < i) {
             array[i - 1] = formula.substring(lengthOfCalcArray + 1, i);
         }
         number = "";
@@ -153,11 +167,11 @@ public class Calculator {
         else {
             // how long is the array
             for (int i = 0; i < array.length; i++) {
-                calcarray[i] = array[i];
                 if (array[i].equals("X")) {
                     lengthOfCalcArray = i;
                     break;
                 }
+                calcarray[i] = array[i];
             }
         }
     }
@@ -215,7 +229,7 @@ public class Calculator {
     }
 
     public static void main(String[] args) {
-        formula = " (-2 -()()( 10+5*(4+20 *2*2) - -2 /4)+8)";
+        formula = "-2 - ()()( 10+5*(4+20 *2*2) - -2 /4)+8";
         System.out.println("String: " + formula);
 
         // test if the String has rigth input
