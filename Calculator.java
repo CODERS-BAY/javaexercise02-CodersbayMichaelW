@@ -192,10 +192,16 @@ public class Calculator {
 
     public static void replaceBrackets() {
         if (brackets) {
-            array[begin] = calcarray[0];
-            // fill the rest with "X"
-            for (int i = begin + 1; i <= end; i++) {
-                array[i] = "X";
+            if(end - begin == 1) {
+                array[begin] = "X";
+                array[end] = "X";
+            }
+            else {
+                array[begin] = calcarray[0];
+                // fill the rest with "X"
+                for (int i = begin + 1; i <= end; i++) {
+                    array[i] = "X";
+                }
             }
         }
         else {
@@ -209,7 +215,7 @@ public class Calculator {
     }
 
     public static void main(String[] args) {
-        formula = " (-2 - ( 10+5*(4+20 *2*2) - -2 /4)+8)";
+        formula = " (-2 -()()( 10+5*(4+20 *2*2) - -2 /4)+8)";
         System.out.println("String: " + formula);
 
         // test if the String has rigth input
