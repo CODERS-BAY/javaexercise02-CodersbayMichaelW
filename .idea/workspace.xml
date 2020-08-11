@@ -37,7 +37,7 @@
       <recent name="C:\xampp\htdocs\javaexercise02-CodersbayMichaelW" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.hello">
+  <component name="RunManager" selected="Application.test">
     <configuration name="Calculator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Calculator" />
       <module name="javaexercise02-CodersbayMichaelW" />
@@ -59,8 +59,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test" />
+      <module name="Project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.test" />
         <item itemvalue="Application.hello" />
         <item itemvalue="Application.calculator" />
         <item itemvalue="Application.Calculator" />
