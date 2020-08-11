@@ -21,7 +21,7 @@
     <property name="jdk.selected.JAVA_MODULE" value="14" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
@@ -58,10 +58,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2980" y="460" key="FileChooserDialogImpl" timestamp="1597125755065">
+    <state x="2980" y="460" key="FileChooserDialogImpl" timestamp="1597125229476">
       <screen x="1920" y="0" width="2560" height="1410" />
     </state>
-    <state x="2980" y="460" key="FileChooserDialogImpl/0.0.1536.834/1920.0.2560.1410@1920.0.2560.1410" timestamp="1597125755065" />
+    <state x="2980" y="460" key="FileChooserDialogImpl/0.0.1536.834/1920.0.2560.1410@1920.0.2560.1410" timestamp="1597125229476" />
     <state width="2517" height="336" key="GridCell.Tab.0.bottom" timestamp="1597125231600">
       <screen x="1920" y="0" width="2560" height="1410" />
     </state>
@@ -78,10 +78,10 @@
       <screen x="1920" y="0" width="2560" height="1410" />
     </state>
     <state width="2517" height="336" key="GridCell.Tab.0.right/0.0.1536.834/1920.0.2560.1410@1920.0.2560.1410" timestamp="1597125231600" />
-    <state x="2680" y="279" key="SettingsEditor" timestamp="1597125858150">
+    <state x="2680" y="279" key="SettingsEditor" timestamp="1597125712258">
       <screen x="1920" y="0" width="2560" height="1410" />
     </state>
-    <state x="2680" y="279" key="SettingsEditor/0.0.1536.834/1920.0.2560.1410@1920.0.2560.1410" timestamp="1597125858150" />
+    <state x="2680" y="279" key="SettingsEditor/0.0.1536.834/1920.0.2560.1410@1920.0.2560.1410" timestamp="1597125712258" />
     <state x="2582" y="325" key="new project wizard" timestamp="1597125577347">
       <screen x="1920" y="0" width="2560" height="1410" />
     </state>
