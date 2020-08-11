@@ -3,7 +3,7 @@
 // a negative number has to have the negative sign in front of it without a space between. Otherwise it counts as operator
 // - 2 =/= -2 but --2 = - -2
 
-public class Calculator {
+public class calculator {
     static int begin;
     static int end;
     static int lengthOfCalcArray = 0;
