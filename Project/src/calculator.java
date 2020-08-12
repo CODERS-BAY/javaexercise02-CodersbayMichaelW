@@ -3,6 +3,11 @@
 // a negative number has to have the negative sign in front of it without a space between. Otherwise it counts as operator
 // - 2 =/= -2 but --2 = - -2
 
+// (1+2)-3 will convert into -> ( 1 + 2 ) - 3 -> the minus will be used as an operator
+
+// to-do -> negative sign and number afterwards should be split ub when the array is created (10+2)-2 | validating works! only stringToArray
+// to-do -> negative, negative into number should work in validating (10+2)--2 | arrayToString works! only valid
+
 public class calculator {
     static int begin;
     static int end;
@@ -10,17 +15,19 @@ public class calculator {
     static int countBrackets = 0;
     static boolean finishedCalc = false;
     static boolean brackets;
+    static boolean closedBracket = false;
     static String formula;
     static String[] array;
     static String[] subArray;
 
+    //-----------------------------------------------------------------------------------------
     public static boolean validating() {
         boolean nextSign = false;
         boolean nextNumber = false;
         try {
             for (int i = 0; i < formula.length(); i++) {
                 switch (formula.charAt(i)) {
-                    case ' ' -> { }
+                    case ' ' -> {}
                     case '*', '%', '/', '+' -> {
                         // sign after another sign
                         if (!nextSign) {
@@ -147,10 +154,12 @@ public class calculator {
         for (int i = 0; i < array.length; i++) {
             switch (formula.charAt(i)) {
                 case ' ' -> array[i] = "X";
-                case '*','/','%','+','(',')' -> array[i] = ""+formula.charAt(i);
+                case '*','/','%','+','(' -> { array[i] = ""+formula.charAt(i); closedBracket = false;}
+                case ')' -> array[i] = ""+formula.charAt(i);
                 case '-' -> {
                     // minus before space| operator | 2 - 2
                     if (formula.charAt(i+1) == ' ') {
+                        closedBracket = false;
                         array[i] = "-";
                         array[++i] = "X";
                     }
@@ -163,7 +172,9 @@ public class calculator {
                     }
                     // minus belong to the number | -2
                     else {
-                        array[++i] = "-";
+                        // the minus is after the closing bracket and a number is following | )-2
+                        if (closedBracket) { array[i] = "-"; }
+                        else { array[++i] = "-"; }
                         i = putNumberInArray(i);
                     }
                 }
@@ -174,14 +185,21 @@ public class calculator {
                 }
             }
         }
+
     }
 
     public static int putNumberInArray(int i) {
         for (int j = i; j < array.length; j++) {
             switch (formula.charAt(j)) {
                 // end of the number
-                case '*','/','%','+','-','(',')' -> {
+                case '*','/','%','+','-','(' -> {
                     array[++i] = ""+formula.charAt(j);
+                    closedBracket = false;
+                    return j;
+                }
+                case ')' -> {
+                    array[++i] = ""+formula.charAt(j);
+                    closedBracket = true;
                     return j;
                 }
                 // end of the number
@@ -225,10 +243,6 @@ public class calculator {
         }
     }
 
-
-
-    //-----------------------------------------------------------------------------------------
-    // not tested so far
     public static void bubbleSort(String[] ar) {
         boolean done = false;
         while (!done) {
@@ -336,13 +350,12 @@ public class calculator {
     }
     //-----------------------------------------------------------------------------------------
 
-
-
-
     public static void main(String[] args) {
-        formula = "(-2) * ( 10+5*(4+5 *2*2) - -2 /4)+8";
+        formula = " -2 - ( 10+5*(4+5 *2*2))--8";
+//        formula = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) - -2 /4)-8";
 //        formula = "( -2)*2 *(5* ( 5+ 1)) -8";
-//        formula = "  -2 + ( 2 --2 ) + 2 ";
+//        formula = "(-2)+(10+2) * -2";
+
 
         array = new String[formula.length()];
 
@@ -350,11 +363,17 @@ public class calculator {
         boolean input = validating();
         System.out.print("String: " + formula);
         String text = (input) ? "Correct" : "Wrong";
-        System.out.println(" " + text);
+        System.out.println(" is " + text);
 
         if (input) {
             stringToArray();
             nullBubleSort();
+
+            // Debug
+            for (String x : array) {
+                System.out.print(x + " ");
+            }
+            System.out.println();
 
             //-----------------------------------------------------------------------------------------
             // not tested so far
@@ -394,21 +413,13 @@ public class calculator {
                 }
                 //-----------------------------------------------------------------------------------------
             }
-        }
-
-
-        // Debug
+            // Debug
 //        for (int i = 0; i < array.length; i++) {
 //            System.out.print(array[i] + " ");
 //        }
 //        System.out.println();
-        for (int i = 0; i < array.length; i++) {
-            if (array[i].equals("X")) {
-                break;
-            }
-            System.out.print(array[i]);
+        System.out.println("The answer is : " + array[0]);
         }
-        System.out.println();
     }
 }
 
