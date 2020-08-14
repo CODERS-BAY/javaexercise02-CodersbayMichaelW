@@ -8,7 +8,7 @@
 // to-do -> negative sign and number afterwards should be split ub when the array is created (10+2)-2 | validating works! only stringToArray
 // to-do -> negative, negative into number should work in validating (10+2)--2 | arrayToString works! only valid
 
-public class calculator {
+public class Calculator {
     static int begin;
     static int end;
     static int lengthOfCalcArray = 0;
@@ -19,6 +19,10 @@ public class calculator {
     static String formula;
     static String[] array;
     static String[] subArray;
+
+
+
+
 
     //-----------------------------------------------------------------------------------------
     public static boolean validating() {
@@ -369,19 +373,9 @@ public class calculator {
         bubbleSort(array);
     }
     //-----------------------------------------------------------------------------------------
-
-    public static void main(String[] args) {
-//        formula = " -2 - ( 10+5*(4+5 *2*2))";
-//        formula = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) - -2 /4) -2";
-//        formula = "( -2)*2 *(5* ( 5+ 1)) -8";
-//        formula = "(-2)+(10+2) * -2";
-//        formula = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
-//        formula = "(2+(2+2)+2)";
-//        formula = "2+2+2+2+2+2+2+2";
-
-
+    public static void rechner(String placeholderText) {
+        formula = placeholderText;
         array = new String[formula.length()];
-
         // test if the String has right input
         boolean input = validating();
         System.out.print("String: " + formula);
@@ -432,60 +426,19 @@ public class calculator {
             }
 
             System.out.println("The answer is " + array[0]);
-
-            // Debug
-//        for (int i = 0; i < array.length; i++) {
-//            System.out.print(array[i] + " ");
-//        }
-//        System.out.println();
-//            for (int i = 0; i < array.length; i++) {
-//                if (array[i].equals("X")) {
-//                    break;
-//                }
-//                System.out.print(array[i]);
-//            }
-//            System.out.println();
         }
     }
+
+    public static void main(String[] args) {
+//        String text = " -2 - ( 10+5*(4+5 *2*2))";
+//        String text = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) - -2 /4) -2";
+//        String text = "( -2)*2 *(5* ( 5+ 1)) -8";
+//        String text = "(-2)+(10+2) * -2";
+//        String text = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
+//        String  text = "(2+(2+2)+2)";
+        String text = "2+2+2+2+2+2+2+2";
+
+        rechner(text);
+
+    }
 }
-
-
-//          test if the validation works | all should be wrong
-//        // -----------------------------------------
-//        formula = "2(2+2)+2";
-//
-//        // test if the String has right input
-//        input = validating();
-//
-//        System.out.print("String: " + formula);
-//        text = (input) ? "Correct" : "Wrong";
-//        System.out.println(" " + text);
-//        // -----------------------------------------
-//        formula = "2(+2+2)+2";
-//
-//        // test if the String has right input
-//        input = validating();
-//
-//        System.out.print("String: " + formula);
-//        text = (input) ? "Correct" : "Wrong";
-//        System.out.println(" " + text);
-//
-//        // -----------------------------------------
-//        formula = "2+(2+2+)+2";
-//
-//        // test if the String has right input
-//        input = validating();
-//
-//        System.out.print("String: " + formula);
-//        text = (input) ? "Correct" : "Wrong";
-//        System.out.println(" " + text);
-//
-//        // -----------------------------------------
-//        formula = "2+(2+2)2";
-//
-//        // test if the String has right input
-//        input = validating();
-//
-//        System.out.print("String: " + formula);
-//        text = (input) ? "Correct" : "Wrong";
-//        System.out.println(" " + text);
