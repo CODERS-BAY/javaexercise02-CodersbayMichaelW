@@ -31,7 +31,8 @@ public class calculator {
                     case '*', '%', '/', '+' -> {
                         // sign after another sign
                         if (!nextSign) {
-                            System.out.println("sign");
+                            System.out.println("index: " + i);
+                            System.out.println("There is something wrong with the sign.");
                             return false;
                         }
                         nextSign = false;
@@ -40,7 +41,8 @@ public class calculator {
                     case '(' -> {
                         // the next thing has to be a number not a sign
                         if (nextSign) {
-                            System.out.println("(");
+                            System.out.println("index: " + i);
+                            System.out.println("There is something wrong with the open bracket.");
                             return false;
                         }
                         // boolean | int
@@ -85,7 +87,8 @@ public class calculator {
                         // it isn't a number
                         if (!formula.substring(i, i + 1).matches("[0-9]")) {
                             System.out.println(formula.charAt(i));
-                            System.out.println("default 1");
+                            System.out.println("index: " + i);
+                            System.out.println("You have to input a sign or a number.");
                             return false;
                         }
                         // it should be a number | can't even be happening, so no idea why i have it in
@@ -95,7 +98,8 @@ public class calculator {
                         }
                         // should be a sign but i have a number instead -> (2+2)2 -> should be (2+2)+2
                         else if (nextSign && formula.substring(i, i+1).matches("[0-9]")) {
-                            System.out.println("default 3");
+                            System.out.println("index: " + i);
+                            System.out.println("A sign have to be after a number.");
                             return false;
                         }
                         nextNumber = false;
@@ -103,7 +107,15 @@ public class calculator {
                     }
                 }
             }
-            return countBrackets == 0;
+            if (nextNumber) {
+                System.out.println("The last input can't be a sign.");
+                return false;
+            }
+            else if (countBrackets != 0) {
+                System.out.println("There is not an equal amount of open and closed brackets.");
+                return false;
+            }
+            return true;
         }
         catch(Exception e) {
             return false;
@@ -252,6 +264,9 @@ public class calculator {
                     done = false;
                     ar[i] = ar[i+1];
                     ar[i+1] = "X";
+//                    lengthOfCalcArray = i + 1;
+                }
+                else if (!ar[i].equals("X") && ar[i+1].equals("X")) {
                     lengthOfCalcArray = i + 1;
                 }
             }
@@ -351,8 +366,8 @@ public class calculator {
     //-----------------------------------------------------------------------------------------
 
     public static void main(String[] args) {
-        formula = " -2 - ( 10+5*(4+5 *2*2))--8";
-//        formula = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) - -2 /4)-8";
+        formula = " -2 - ( 10+5*(4+5 *2*2))";
+//        formula = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) - -2 /4) -2";
 //        formula = "( -2)*2 *(5* ( 5+ 1)) -8";
 //        formula = "(-2)+(10+2) * -2";
 
@@ -368,12 +383,6 @@ public class calculator {
         if (input) {
             stringToArray();
             nullBubleSort();
-
-            // Debug
-            for (String x : array) {
-                System.out.print(x + " ");
-            }
-            System.out.println();
 
             //-----------------------------------------------------------------------------------------
             // not tested so far
@@ -413,12 +422,21 @@ public class calculator {
                 }
                 //-----------------------------------------------------------------------------------------
             }
+
+            System.out.println("The answer is " + array[0]);
+
             // Debug
 //        for (int i = 0; i < array.length; i++) {
 //            System.out.print(array[i] + " ");
 //        }
 //        System.out.println();
-        System.out.println("The answer is : " + array[0]);
+//            for (int i = 0; i < array.length; i++) {
+//                if (array[i].equals("X")) {
+//                    break;
+//                }
+//                System.out.print(array[i]);
+//            }
+//            System.out.println();
         }
     }
 }
