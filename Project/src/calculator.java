@@ -236,6 +236,7 @@ public class calculator {
     // also writes the length of the array into "lengthOfCalcArray"
     public static void nullBubleSort() {
         boolean done = false;
+        boolean xFound = false;
         while (!done) {
             done = true;
             for(int i = 0; i < array.length - 1; i++){
@@ -247,11 +248,15 @@ public class calculator {
                 }
                 if (array[i].equals("X") && !array[i+1].equals("X")) {
                     done = false;
+                    xFound = true;
                     array[i] = array[i+1];
                     array[i+1] = "X";
                     lengthOfCalcArray = i + 1;
                 }
             }
+        }
+        if (!xFound) {
+            lengthOfCalcArray = array.length;
         }
     }
 
@@ -366,10 +371,13 @@ public class calculator {
     //-----------------------------------------------------------------------------------------
 
     public static void main(String[] args) {
-        formula = " -2 - ( 10+5*(4+5 *2*2))";
+//        formula = " -2 - ( 10+5*(4+5 *2*2))";
 //        formula = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) - -2 /4) -2";
 //        formula = "( -2)*2 *(5* ( 5+ 1)) -8";
 //        formula = "(-2)+(10+2) * -2";
+//        formula = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
+//        formula = "(2+(2+2)+2)";
+//        formula = "2+2+2+2+2+2+2+2";
 
 
         array = new String[formula.length()];
