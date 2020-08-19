@@ -24,7 +24,14 @@ public class calculator {
         try {
             for (int i = 0; i < formula.length(); i++) {
                 switch (formula.charAt(i)) {
-                    case ' ', '.' -> {}
+                    case ' ' -> {}
+                    case '.' -> {
+                        if (!formula.substring(i+1,i+2).matches("[0-9]")) {
+                            System.out.println("index: " + i);
+                            System.out.println("There must be a number after a point.");
+                            return false;
+                        }
+                    }
                     case '*', '%', '/', '+' -> {
                         // sign after another sign
                         if (!nextSign) {
@@ -73,6 +80,8 @@ public class calculator {
                         if (!nextSign && formula.substring(i+1, i+2).matches("[0-9]")) {
                             nextNumber = true;
                         }
+                        // -.2 negative number
+                        else if (!nextSign && formula.charAt(i+1) == '.') { }
                         // - operator
                         else if (nextSign) {
                             nextSign = false;
@@ -443,13 +452,13 @@ public class calculator {
 
     public static void main(String[] args) {
         String text;
-//         text = " -2 - ( 10+5*(4+5 *2*2))";
-        text = "(-20.5)+ (2+2) * ( 10+5*(4+5 *2*2.0) --2 /4) --2";
-//         text = "( -2)*2 *(5* ( 5+ 1)) -8";
-//         text = "(-2)+(10+2) * -2";
-//         text = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
-//         text = "(2+(2+2)+2)";
-//         text = "2+2+2+2+2+2+2+2";
+//        text = " -2 - ( 10+5*(4+5 *2*2))";
+        text = "(-.5)+ (2+.2) * ( 10+5*(4+5 *2*2.0) --2 /4) --2";
+//        text = "( -2)*2 *(5* ( 5+ 1)) -8";
+//        text = "(-2)+(10+2) * -2";
+//        text = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
+//        text = "(2+(2+2)+2)";
+//         text = "-.2 + 2";
 //        text = "-3 - 4/ -3 *6";
 
         rechner(text);
