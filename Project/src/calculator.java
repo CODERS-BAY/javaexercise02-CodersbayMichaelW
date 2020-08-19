@@ -24,7 +24,7 @@ public class calculator {
         try {
             for (int i = 0; i < formula.length(); i++) {
                 switch (formula.charAt(i)) {
-                    case ' ' -> {}
+                    case ' ', '.' -> {}
                     case '*', '%', '/', '+' -> {
                         // sign after another sign
                         if (!nextSign) {
@@ -107,7 +107,7 @@ public class calculator {
                         }
                         // number has more than 1 char or is greater than 9 or less than -9
                         else if (i != formula.length() - 1) {
-                            if (formula.substring(i+1, i+2).matches("[0-9]")) {
+                            if (formula.substring(i+1, i+2).matches("[0-9]") || formula.charAt(i+1) == '.') {
                                 continue;
                             }
                         }
@@ -444,7 +444,7 @@ public class calculator {
     public static void main(String[] args) {
         String text;
 //         text = " -2 - ( 10+5*(4+5 *2*2))";
-        text = "(-200)+ (2+2) * ( 10+5*(4+5 *2*20) --2 /4) --2";
+        text = "(-20.5)+ (2+2) * ( 10+5*(4+5 *2*2.0) --2 /4) --2";
 //         text = "( -2)*2 *(5* ( 5+ 1)) -8";
 //         text = "(-2)+(10+2) * -2";
 //         text = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
