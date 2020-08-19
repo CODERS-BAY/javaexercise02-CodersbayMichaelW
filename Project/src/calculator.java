@@ -105,6 +105,12 @@ public class calculator {
                             System.out.println("A sign have to be after a number.");
                             return false;
                         }
+                        // number has more than 1 char or is greater than 9 or less than -9
+                        else if (i != formula.length() - 1) {
+                            if (formula.substring(i+1, i+2).matches("[0-9]")) {
+                                continue;
+                            }
+                        }
                         nextNumber = false;
                         nextSign = true;
                     }
@@ -403,13 +409,13 @@ public class calculator {
                 // make a new Array with the deepest layer
                 createSubArray();
 
-                // calc the deepest layer | multi > div = mod > plus = minus | * > / = % > + = -
-                // multi
-                calculation("*");
+                // calc the deepest layer | div > mod > multi > plus = minus | / > % > * > + = -
                 // div
                 calculation("/");
                 // mod
                 calculation("%");
+                // multi
+                calculation("*");
                 // plus
                 calculation("+");
                 // minus
@@ -436,13 +442,15 @@ public class calculator {
     }
 
     public static void main(String[] args) {
-//        String text = " -2 - ( 10+5*(4+5 *2*2))";
-        String text = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) --2 /4) --2";
-//        String text = "( -2)*2 *(5* ( 5+ 1)) -8";
-//        String text = "(-2)+(10+2) * -2";
-//        String text = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
-//        String  text = "(2+(2+2)+2)";
-//        String text = "2+2+2+2+2+2+2+2";
+        String text;
+//         text = " -2 - ( 10+5*(4+5 *2*2))";
+        text = "(-200)+ (2+2) * ( 10+5*(4+5 *2*20) --2 /4) --2";
+//         text = "( -2)*2 *(5* ( 5+ 1)) -8";
+//         text = "(-2)+(10+2) * -2";
+//         text = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
+//         text = "(2+(2+2)+2)";
+//         text = "2+2+2+2+2+2+2+2";
+//        text = "-3 - 4/ -3 *6";
 
         rechner(text);
 
