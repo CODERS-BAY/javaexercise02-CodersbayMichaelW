@@ -5,10 +5,7 @@
 
 // (1+2)-3 will convert into -> ( 1 + 2 ) - 3 -> the minus will be used as an operator
 
-// to-do -> negative sign and number afterwards should be split ub when the array is created (10+2)-2 | validating works! only stringToArray
-// to-do -> negative, negative into number should work in validating (10+2)--2 | arrayToString works! only valid
-
-public class Calculator {
+public class calculator {
     static int begin;
     static int end;
     static int lengthOfCalcArray = 0;
@@ -19,10 +16,6 @@ public class Calculator {
     static String formula;
     static String[] array;
     static String[] subArray;
-
-
-
-
 
     //-----------------------------------------------------------------------------------------
     public static boolean validating() {
@@ -58,6 +51,11 @@ public class Calculator {
                             nextSign = false;
                             countBrackets++;
                             continue;
+                        } // empty bracket
+                        else if (!Boolean.parseBoolean(valid[0]) && valid[1].equals(")")) {
+                            System.out.println("index: " + i);
+                            System.out.println("There is an bracket with no input.");
+                            return false;
                         } // No
                         nextSign = true;
                         nextNumber = false;
@@ -82,7 +80,8 @@ public class Calculator {
                         }
                         // something is wrong
                         else {
-                            System.out.println("-");
+                            System.out.println("index: " + i);
+                            System.out.println("There is something wrong with the minus sign.");
                             return false;
                         }
                     }
@@ -132,6 +131,13 @@ public class Calculator {
         String[] returnThing = new String[2];
         int counter = begin + 1;
         returnThing[0] = "true";
+
+        if (formula.charAt(begin + 1) == ')') {
+            System.out.println("begin " + begin);
+            returnThing[0] = "false";
+            returnThing[1] = ")";
+            return returnThing;
+        }
 
         for (int i = begin + 1; i < array.length; i++) {
             counter++;
@@ -431,12 +437,12 @@ public class Calculator {
 
     public static void main(String[] args) {
 //        String text = " -2 - ( 10+5*(4+5 *2*2))";
-//        String text = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) - -2 /4) -2";
+        String text = "(-2)+ (2+2) * ( 10+5*(4+5 *2*2) --2 /4) --2";
 //        String text = "( -2)*2 *(5* ( 5+ 1)) -8";
 //        String text = "(-2)+(10+2) * -2";
 //        String text = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
 //        String  text = "(2+(2+2)+2)";
-        String text = "2+2+2+2+2+2+2+2";
+//        String text = "2+2+2+2+2+2+2+2";
 
         rechner(text);
 
