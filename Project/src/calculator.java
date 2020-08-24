@@ -5,7 +5,7 @@
 
 // (1+2)-3 will convert into -> ( 1 + 2 ) - 3 -> the minus will be used as an operator
 
-public class calculator {
+public class Calculator {
     static int begin;
     static int end;
     static int lengthOfCalcArray = 0;
@@ -27,7 +27,7 @@ public class calculator {
                     case ' ' -> {}
                     case '.' -> {
                         if (!formula.substring(i+1,i+2).matches("[0-9]")) {
-                            System.out.println("index: " + i);
+                            System.out.println("char: " + formula.charAt(i) + ", index: " + i);
                             System.out.println("There must be a number after a point.");
                             return false;
                         }
@@ -35,7 +35,7 @@ public class calculator {
                     case '*', '%', '/', '+' -> {
                         // sign after another sign
                         if (!nextSign) {
-                            System.out.println("index: " + i);
+                            System.out.println("char: " + formula.charAt(i) + ", index: " + i);
                             System.out.println("There is something wrong with the sign.");
                             return false;
                         }
@@ -45,7 +45,7 @@ public class calculator {
                     case '(' -> {
                         // the next thing has to be a number not a sign
                         if (nextSign) {
-                            System.out.println("index: " + i);
+                            System.out.println("char: " + formula.charAt(i) + ", index: " + i);
                             System.out.println("There is something wrong with the open bracket.");
                             return false;
                         }
@@ -60,7 +60,7 @@ public class calculator {
                             continue;
                         } // empty bracket
                         else if (!Boolean.parseBoolean(valid[0]) && valid[1].equals(")")) {
-                            System.out.println("index: " + i);
+                            System.out.println("char: " + formula.charAt(i) + ", index: " + i);
                             System.out.println("There is an bracket with no input.");
                             return false;
                         } // No
@@ -89,7 +89,7 @@ public class calculator {
                         }
                         // something is wrong
                         else {
-                            System.out.println("index: " + i);
+                            System.out.println("char: " + formula.charAt(i) + ", index: " + i);
                             System.out.println("There is something wrong with the minus sign.");
                             return false;
                         }
@@ -98,19 +98,13 @@ public class calculator {
                     default -> {
                         // it isn't a number
                         if (!formula.substring(i, i + 1).matches("[0-9]")) {
-                            System.out.println(formula.charAt(i));
-                            System.out.println("index: " + i);
+                            System.out.println("char: " + formula.charAt(i) + ", index: " + i);
                             System.out.println("You have to input a sign or a number.");
-                            return false;
-                        }
-                        // it should be a number | can't even be happening, so no idea why i have it in
-                        else if (nextNumber && !formula.substring(i, i+1).matches("[0-9]")) {
-                            System.out.println("default 2");
                             return false;
                         }
                         // should be a sign but i have a number instead -> (2+2)2 -> should be (2+2)+2
                         else if (nextSign && formula.substring(i, i+1).matches("[0-9]")) {
-                            System.out.println("index: " + i);
+                            System.out.println("char: " + formula.charAt(i) + ", index: " + i);
                             System.out.println("A sign have to be after a number.");
                             return false;
                         }
@@ -453,7 +447,7 @@ public class calculator {
     public static void main(String[] args) {
         String text;
 //        text = " -2 - ( 10+5*(4+5 *2*2))";
-        text = "(-.5)+ (2+.2) * ( 10+5*(4+5 *2*2.0) --2 /4) --2";
+        text = "(-.5)+ (2+.2) * ( 10+5*(4+5 *2*2.054) --2 /4) --2";
 //        text = "( -2)*2 *(5* ( 5+ 1)) -8";
 //        text = "(-2)+(10+2) * -2";
 //        text = "(2+(2+(2+(2+(2+2)+2)+2)+2)+2)";
